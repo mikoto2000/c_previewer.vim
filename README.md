@@ -41,11 +41,11 @@ Usage:
 let g:c_previewer_toolchain = 'aarch64-linux-gnu-'
 let g:c_previewer_cflags = ' -I /PATH/TO/include '
 
-command! Assenble c_previewer#OpenAssembleBuffer()
-command! Headers c_previewer#OpenHeadersBuffer()
-command! Symbols c_previewer#OpenSymbolsBuffer()
-command! Hex c_previewer#OpenHexBuffer()
-command! Cpp c_previewer#OpenPreprocessBuffer()
+command! Assenble call c_previewer#OpenAssembleBuffer()
+command! Headers call c_previewer#OpenHeadersBuffer()
+command! Symbols call c_previewer#OpenSymbolsBuffer()
+command! Hex call c_previewer#OpenHexBuffer()
+command! Cpp call c_previewer#OpenPreprocessBuffer()
 ```
 
 
