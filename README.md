@@ -1,31 +1,58 @@
-file_selector.vim
-=================
+c_previewer.vim
+===============
 
-シンプルで簡単に使えるファイルセレクターです。
+c のソースコードをコンパイルしたオブジェクト情報等、各種情報を表示するプラグインです。
+表示できる情報は下記の通り。
+
+- アセンブラ(gcc -S)
+- ヘッダー一覧(objdump --all-headers)
+- シンボル一覧(nm)
+- オブジェクトダンプ(hexdump)
+- マクロ展開後のソースコード(cpp)
+
 
 Usage:
 ------
 
-`buffer_selector#OpenFileSelector()` を、お好みのキーにマッピングしてください。
+下記関数をお好みのキーにマッピングしてください。
+ウィンドウを分割し、それぞれに応じた情報を表示します。
+
+- ``c_previewer#OpenAssembleBuffer()`` : アセンブラ表示(gcc -S)
+- ``c_previewer#OpenHeadersBuffer()`` : ヘッダー一覧(objdump --all-headers)
+- ``c_previewer#OpenSymbolsBuffer()`` : シンボル一覧(nm)
+- ``c_previewer#OpenHexBuffer()`` : オブジェクトダンプ(hexdump)
+- ``c_previewer#OpenPreprocessBuffer()`` : マクロ展開後のソースコード(cpp)
+
+デフォルトのツールチェイン以外を使用したい場合には、
+下記グローバル変数を設定してください。
+
+- ``g:c_previewer_toolchain`` : デフォルト空文字列
+- ``g:c_previewer_gcc`` : デフォルトは `gcc`
+- ``g:c_previewer_objdump`` : デフォルトは `objdump`
+- ``g:c_previewer_cpp`` : デフォルトは `cpp`
+- ``g:c_previewer_hexdump`` : デフォルトは `hexdump`
+- ``g:c_previewer_nm`` : デフォルトは `nm`
+- ``g:c_previewer_cflags`` : デフォルトは空文字列
+
 
 設定例 :
 
 ```vim
-noremap <Leader>f <Esc>:call file_selector#OpenFileSelector()<Enter>
+let g:c_previewer_toolchain = 'aarch64-linux-gnu-'
+let g:c_previewer_cflags = ' -I /PATH/TO/include '
+
+command! Assenble c_previewer#OpenAssembleBuffer()
+command! Headers c_previewer#OpenHeadersBuffer()
+command! Symbols c_previewer#OpenSymbolsBuffer()
+command! Hex c_previewer#OpenHexBuffer()
+command! Cpp c_previewer#OpenPreprocessBuffer()
 ```
-
-`file_selector#OpenFileSelector()` を実行すると、ファイル絞り込み用バッファーが開きます。
-ファイル絞り込み用バッファーには、カレントディレクトリ以下のファイルを再帰的に取得した一覧が表示されます。
-
-文字を入力すると、ファイル絞り込み用バッファのファイル一覧が絞り込まれていきます。
-
-ある程度絞り込まれたら、 ``<C-n>``, ``<C-p>`` でカーソルを上下に動かし、 ``<C-l>`` を押すことでカーソル上のファイルを開きます。
 
 
 License:
 --------
 
-Copyright (C) 2016 mikoto2000
+Copyright (C) 2017 mikoto2000
 
 This software is released under the MIT License, see LICENSE
 
