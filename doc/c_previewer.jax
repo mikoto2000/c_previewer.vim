@@ -1,0 +1,81 @@
+*c_previewer.txt* c のソースコードをコンパイルしたオブジェクト情報等、各種情報を表示するプラグイン。
+
+目次                                           *c_previewer-contents*
+
+概要                                           |INTRODUCTION|
+使い方                                         |USEAGE|
+ライセンス                                     |LICENSE|
+
+==============================================================================
+概要                                           *c_previewer-introduction*
+
+c のソースコードの下記情報を表示するプラグインです。
+
+- アセンブラ(gcc -S)
+- ヘッダー一覧(objdump --all-headers)
+- シンボル一覧(nm)
+- オブジェクトダンプ(hexdump)
+- マクロ展開後のソースコード(cpp)
+
+
+==============================================================================
+使い方                                         *c_previewer-useage*
+
+下記関数をお好みのキーにマッピングしてください。
+ウィンドウを分割し、それぞれに応じた情報を表示します。
+
+- `c_previewer#OpenAssembleBuffer()` : アセンブラ表示(gcc -S)
+- `c_previewer#OpenHeadersBuffer()` : ヘッダー一覧(objdump --all-headers)
+- `c_previewer#OpenSymbolsBuffer()` : シンボル一覧(nm)
+- `c_previewer#OpenHexBuffer()` : オブジェクトダンプ(hexdump)
+- `c_previewer#OpenPreprocessBuffer()` : マクロ展開後のソースコード(cpp)
+
+デフォルトのツールチェイン以外を使用したい場合には、
+下記グローバル変数を設定してください。
+
+- g:c_previewer_toolchain : デフォルト空文字列
+- g:c_previewer_gcc : デフォルトは `gcc`
+- g:c_previewer_objdump : デフォルトは `objdump`
+- g:c_previewer_cpp : デフォルトは `cpp`
+- g:c_previewer_hexdump : デフォルトは `hexdump`
+- g:c_previewer_nm : デフォルトは `nm`
+- g:c_previewer_cflags : デフォルトは空文字列
+
+
+設定例 : >
+    let g:c_previewer_toolchain = 'aarch64-linux-gnu-'
+    let g:c_previewer_cflags = ' -I /PATH/TO/include '
+
+    command! Assenble c_previewer#OpenAssembleBuffer()
+    command! Headers c_previewer#OpenHeadersBuffer()
+    command! Symbols c_previewer#OpenSymbolsBuffer()
+    command! Hex c_previewer#OpenHexBuffer()
+    command! Cpp c_previewer#OpenPreprocessBuffer()
+<
+
+==============================================================================
+ライセンス                                     *c_previewer-license*
+
+The MIT License (MIT)
+
+Copyright (c) 2017 mikoto2000
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of
+this software and associated documentation files (the "Software"), to deal in
+the Software without restriction, including without limitation the rights to
+use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
+the Software, and to permit persons to whom the Software is furnished to do so,
+subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
+FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
+COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
+IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
+CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+
+vim:tw=78:ts=8:ft=help:norl:noet:fen:fdl=0:
