@@ -8,7 +8,7 @@ let g:c_previewer_nm = 'nm'
 let g:c_previewer_cflags = get(g:, 'c_previewer_cflags', '')
 
 " ウィンドウを分割し、アセンブラソースコードを表示する
-function! c_previewer#OpenAssembleBuffer()
+function c_previewer#OpenAssembleBuffer()
     let source = fnamemodify(expand("%"), ":p")
     let tempfile_assemble = tempname()
     silent execute "!" . g:c_previewer_gcc . " -S " . g:c_previewer_cflags . " -o " . tempfile_assemble . " " . source
@@ -18,7 +18,7 @@ function! c_previewer#OpenAssembleBuffer()
 endfunction
 
 " ウィンドウを分割し、ヘッダー一覧を表示する
-function! c_previewer#OpenHeadersBuffer()
+function c_previewer#OpenHeadersBuffer()
     let source = fnamemodify(expand("%"), ":p")
     let tempfile_object = tempname()
     let tempfile_headers = tempname()
@@ -31,7 +31,7 @@ function! c_previewer#OpenHeadersBuffer()
 endfunction
 
 " ウィンドウを分割し、シンボル一覧を表示する
-function! c_previewer#OpenSymbolsBuffer()
+function c_previewer#OpenSymbolsBuffer()
     let source = fnamemodify(expand("%"), ":p")
     let tempfile_object = tempname()
     let tempfile_symbols = tempname()
@@ -44,7 +44,7 @@ function! c_previewer#OpenSymbolsBuffer()
 endfunction
 
 " ウィンドウを分割し、オブジェクトダンプを表示する
-function! c_previewer#OpenHexBuffer()
+function c_previewer#OpenHexBuffer()
     let source = fnamemodify(expand("%"), ":p")
     let tempfile_object = tempname()
     let tempfile_hex = tempname()
@@ -58,7 +58,7 @@ function! c_previewer#OpenHexBuffer()
 endfunction
 
 " ウィンドウを分割し、マクロ展開後ソースコードを表示する
-function! c_previewer#OpenPreprocessBuffer()
+function c_previewer#OpenPreprocessBuffer()
     let source = fnamemodify(expand("%"), ":p")
     let tempfile_cpp = tempname()
     silent execute "!" . g:c_previewer_cpp . " " . g:c_previewer_cflags . " -o " . tempfile_cpp . " " . source
@@ -69,7 +69,7 @@ function! c_previewer#OpenPreprocessBuffer()
 endfunction
 
 " バッファをリードオンリーにする
-function! c_previewer#SetBufferOption_ro()
+function c_previewer#SetBufferOption_ro()
     setlocal noshowcmd
     setlocal noswapfile
     setlocal buftype=nofile
@@ -81,7 +81,7 @@ function! c_previewer#SetBufferOption_ro()
 endfunction
 
 " バッファを編集可能にする
-function! c_previewer#SetBufferOption_edit()
+function c_previewer#SetBufferOption_edit()
     setlocal modifiable
 endfunction
 
